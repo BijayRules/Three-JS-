@@ -77,6 +77,10 @@
           y: 6.2,
           duration: 1,
           ease: "power1.inOut",
+          onUpdate: function () {
+            // Gradually change the background color to black with transparency
+            renderer.setClearColor(new THREE.Color(0xffffff), this.progress());
+          },
         });
 
         // Move the "page" to the right
@@ -85,7 +89,7 @@
 
           if (page.position.x >= targetPositionX) {
             moveRight = false;
-            renderer.setClearColor(0x000000, 0)
+            renderer.setClearColor(0x000000, 0);
           }
         }
 
