@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Page Flip Animation</title>
+    <style>
+      .wrapper {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        perspective: 800px;
+      }
+
+      .page {
+        width: 300px;
+        height: 500px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-100%, -50%);
+        border-radius: 10px;
+      }
+
+      .red {
+        background: red;
+        z-index: 4;
+      }
+      .green {
+        background: green;
+        z-index: 3;
+      }
+      .blue {
+        background: blue;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="page red"></div>
+      <div class="page green"></div>
+      <div class="page blue"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+      const tl = gsap.timeline();
+
+      tl.to(".page", {
+        rotationY: 180,
+        stagger: {
+          each: 0.7,
+          onStart: function () {
+            gsap.set(this.targets(), { zIndex: 999 });
+          },
+          onComplete: function () {
+            gsap.set(this.targets(), { zIndex: 1 });
+          },
+        },
+        ease: "power2.inOut",
+        duration: 0.5,
+        transformOrigin: "100% 50%",
+      });
+
+      // GSDevTools.create({ animation:tl })
+    </script>
+  </body>
+</html>
